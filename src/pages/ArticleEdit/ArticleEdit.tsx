@@ -167,7 +167,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
           <Input
             className={style.title}
             placeholder="文章标题"
-            value={article.currentArticle ? article.currentArticle.title : ''}
+            value={ article?.currentArticle?.title || ''}
             onChange={onTitleChange}
           />
           <div className={style.actions}>
@@ -185,7 +185,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
           <MdEditor
             name={"文章内容"}
             style={{width: '100%', height: 'calc(100vh - 250px)'}}
-            value={article.currentArticle ? article.currentArticle.content : ''}
+            value={ article?.currentArticle?.content || ''}
             renderHTML={(text) => {
               const html = mdParser.render(text);
               dispatch({
@@ -207,7 +207,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
             name={"链接页脚"}
             config={{view: {menu: false, md: true, html: true}}}
             style={{width: '100%', height: '100px'}}
-            value={article.currentArticle ? article.currentArticle.linkFooter : ''}
+            value={ article?.currentArticle?.linkFooter || '' }
             renderHTML={(text) => {
               const html = mdParser.render(text);
               dispatch({
@@ -229,7 +229,7 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
             name={"二维码页脚"}
             config={{view: {menu: false, md: true, html: true}}}
             style={{width: '100%', height: '100px'}}
-            value={article.currentArticle ? article.currentArticle.qrFooter : ''}
+            value={ article?.currentArticle?.qrFooter || ''}
             renderHTML={(text) => {
               const html = mdParser.render(text);
               dispatch({

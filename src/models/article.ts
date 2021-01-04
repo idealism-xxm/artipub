@@ -115,7 +115,7 @@ const ArticleModel: ArticleModelType = {
     *resetArticle(_, { put }) {
       yield put({
         type: 'saveArticle',
-        payload: { title: '', content: '' },
+        payload: { title: '', content: '', contentHtml: '', linkFooter: '', linkFooterHtml: '', qrFooter: '', qrFooterHtml: '', platformIds: [] },
       });
     },
 

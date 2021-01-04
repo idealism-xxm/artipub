@@ -88,6 +88,7 @@ class ZhihuSpider extends BaseSpider {
 
   async afterPublish() {
     this.task.url = this.page.url()
+    console.log('知乎文章地址：' + this.task.url)
     this.task.updateTs = new Date()
     this.task.status = constants.status.FINISHED
     await this.task.save()

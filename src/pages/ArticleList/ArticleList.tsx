@@ -795,7 +795,7 @@ const ArticleList: React.FC<ArticleListProps> = props => {
         </Button>
       </div>
       <Card>
-        <Table dataSource={article.articles} columns={articleColumns} />
+        <Table dataSource={article.articles} columns={articleColumns} rowKey="_id" />
       </Card>
     </PageHeaderWrapper>
   );

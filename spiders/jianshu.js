@@ -84,8 +84,8 @@ class JianshuSpider extends BaseSpider {
       const text = document.querySelector('body').innerText
       const mRead = text.match(/阅读 ([,\d]+)/)
       const mLike = text.match(/(\d+)人点赞/)
-      const mComment = text.match(/评论 (\d+)/)
-      const readNum = mRead ? Number(mRead[1].replaceAll(',', '')) : 0
+      const mComment = text.match(/全部评论\n(\d+)/)
+      const readNum = mRead ? Number(mRead[1].replace(/,/g, '')) : 0
       const likeNum = mLike ? Number(mLike[1]) : 0
       const commentNum = mComment ? Number(mComment[1]) : 0
       return {

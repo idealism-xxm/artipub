@@ -43,7 +43,7 @@ class AliyunSpider extends BaseSpider {
         }
       })
     });
-    await this.page.waitForNavigation()
+    await this.page.waitFor(5000)
 
     this.task.url = await this.page.evaluate(() => {
       return document.location.href
@@ -58,7 +58,7 @@ class AliyunSpider extends BaseSpider {
   async fetchStats() {
     if (!this.task.url) return
     await this.page.goto(this.task.url, { timeout: 60000 })
-    await this.page.waitForNavigation()
+    await this.page.waitFor(5000)
 
     const readNum = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText

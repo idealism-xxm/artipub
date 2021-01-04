@@ -22,8 +22,10 @@ class CnblogsSpider extends BaseSpider {
       return document.querySelector('.link-post-title')
         .getAttribute('href')
     })
-    console.log(this.task.url)
+    console.log('博客园文章地址：' + this.task.url)
     if (!this.task.url) return
+    // 抓取的 url 是 `//{domain}/{path}` 形式，需要手动加上协议
+    this.task.url = 'https:' + this.task.url
     this.task.updateTs = new Date()
     this.task.status = constants.status.FINISHED
     await this.task.save()
