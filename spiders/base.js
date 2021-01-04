@@ -255,7 +255,8 @@ class BaseSpider {
       // do nothing
     }
     document.execCommand('delete', false);
-    document.execCommand('insertText', false, article.content);
+    const content = article.content + article.linkFooter + article.qrFooter
+    document.execCommand('insertText', false, content);
   }
 
   /**
