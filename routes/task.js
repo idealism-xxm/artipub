@@ -31,6 +31,11 @@ module.exports = {
         task.checked = _task.checked
         task.authType = _task.authType
         task.title = _task.title
+        // 如果目前状态不是处理中，那么还要更新链接
+        if (task.status !== constants.status.PROCESSING) {
+          task.status = _task.status
+          task.url = _task.url
+        }
       } else {
         task = new models.Task({
           articleId: ObjectId(_task.articleId),
@@ -46,6 +51,7 @@ module.exports = {
           tag: _task.tag,
           pubType: _task.pubType,
           title: _task.title,
+          url: _task.url,
         })
       }
       task = await task.save()

@@ -3,6 +3,7 @@ import { addTask, addTasks, queryTaskList, saveTask } from '@/services/task';
 import { Reducer } from 'redux';
 import {Platform} from "@/models/platform";
 import {ConnectState} from "@/models/connect";
+import constants from '@/constants'
 
 export interface Task {
   _id?: string;
@@ -63,6 +64,11 @@ const TaskModel: TaskModelType = {
         // 只更新状态
         for (let i = 0; i < tasks.length; i++) {
           const task = tasks[i];
+          // 只更新以前是处理中的任务
+          if (tasks[i].status != constants.status.PROCESSING) {
+            continue
+          }
+
           const newTask = newTasks.filter((t: Task) => t._id === task._id)[0];
           if (!newTask) continue;
           tasks[i].status = newTask.status;

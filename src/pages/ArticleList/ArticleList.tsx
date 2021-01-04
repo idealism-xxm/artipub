@@ -263,6 +263,19 @@ const ArticleList: React.FC<ArticleListProps> = props => {
     };
   };
 
+  const onTaskUrlChange = (ev: any) => {
+    const value = ev.target.value
+    // 当前没有任务处理时才可以修改链接
+    if (value !== undefined && !!task.currentTask && task.currentTask.status != constants.status.PROCESSING) {
+      task.currentTask.status = constants.status.FINISHED
+      task.currentTask.url = value
+      dispatch({
+        type: 'task/saveCurrentTask',
+        payload: task.currentTask,
+      });
+    }
+  };
+
   const getBadgeCount = (p: Platform) => {
     const t = task.tasks.filter((d: Task) => d.platformId === p._id)[0];
     if (!t || !t.checked) return 0;
@@ -565,6 +578,15 @@ const ArticleList: React.FC<ArticleListProps> = props => {
           value={currentTask ? currentTask.title : ''}
           placeholder="请输入标题（留空则用文章标题）"
           onChange={onTaskChange('input', 'title')}
+        />
+      </Form.Item>
+      <Form.Item label="链接">
+        <Input
+          // 还未创建任务 或者 任务处理中，不允许修改
+          disabled={!currentTask || currentTask.status == constants.status.PROCESSING}
+          value={currentTask ? currentTask.url : ''}
+          placeholder="请输入链接（可手动修改为以前发布的对应文章链接）"
+          onChange={onTaskUrlChange}
         />
       </Form.Item>
     </Form>
