@@ -170,7 +170,6 @@ const PlatformList: React.FC<PlatformListProps> = props => {
         type: 'platform/saveCurrentPlatform',
         payload: d,
       });
-      TDAPP.onEvent('平台管理-打开账户设置')
     };
   };
 
@@ -179,7 +178,6 @@ const PlatformList: React.FC<PlatformListProps> = props => {
       type: 'platform/saveAccountModalVisible',
       payload: false,
     });
-    TDAPP.onEvent('平台管理-取消账户设置')
   };
 
   const onAccountSave = async () => {
@@ -191,7 +189,6 @@ const PlatformList: React.FC<PlatformListProps> = props => {
       type: 'platform/saveAccountModalVisible',
       payload: false,
     });
-    TDAPP.onEvent('平台管理-保存账户设置')
   };
 
   const getStatsComponent = (d: any) => {
@@ -459,8 +456,6 @@ const PlatformList: React.FC<PlatformListProps> = props => {
         type: 'platform/fetchPlatformList',
       });
     }
-
-    TDAPP.onEvent('平台管理-访问页面');
   }, []);
 
   return (
