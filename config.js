@@ -1,6 +1,6 @@
 module.exports = {
   HOST: '0.0.0.0',
-  PORT: 3000,
+  PORT: 4321,
   MONGO_HOST: process.env.MONGO_HOST ? process.env.MONGO_HOST : 'localhost',
   MONGO_PORT: process.env.MONGO_PORT ? process.env.MONGO_PORT : '27017',
   MONGO_DB: process.env.MONGO_DB ? process.env.MONGO_DB : 'artipub',
