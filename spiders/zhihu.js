@@ -12,8 +12,7 @@ class ZhihuSpider extends BaseSpider {
     }
 
     // 内容
-    const footerContent = ``
-    const content = this.article.content + footerContent
+    const content = this.article.content + this.article.linkFooter + this.article.qrFooter
 
     // 写入临时markdown文件
     const mdPath = path.join(dirPath, `${this.article._id.toString()}.md`)
@@ -95,6 +94,28 @@ class ZhihuSpider extends BaseSpider {
   }
 
   async fetchStats() {
+    if (!this.task.url) return
+    await this.page.goto(this.task.url, { timeout: 60000 })
+    await this.page.waitFor(5000)
+
+    const stats = await this.page.evaluate(() => {
+      const text = document.querySelector('body').innerText
+      const mComment = text.match(/(\d+) 条评论/)
+      const likeNum = Number(document.querySelector('.VoteButton--up').getAttribute('aria-label').substr(2).trim())
+      // 暂时看不到阅读数，默认使用赞数
+      const readNum = likeNum
+      const commentNum = mComment ? Number(mComment[1]) : 0
+      return {
+        readNum,
+        likeNum,
+        commentNum
+      }
+    })
+    this.task.readNum = stats.readNum
+    this.task.likeNum = stats.likeNum
+    this.task.commentNum = stats.commentNum
+    await this.task.save()
+    await this.page.waitFor(3000)
   }
 }
 

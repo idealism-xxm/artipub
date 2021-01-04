@@ -3,8 +3,7 @@ const constants = require('../constants')
 
 class V2exSpider extends BaseSpider {
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.content + footerContent
+    const content = article.content + article.linkFooter + article.qrFooter
     editor.setValue(content)
   }
 

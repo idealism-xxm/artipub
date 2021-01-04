@@ -3,8 +3,7 @@ const constants = require('../constants')
 
 class SegmentfaultSpider extends BaseSpider {
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.content + footerContent
+    const content = article.content + article.linkFooter + article.qrFooter
     const el = document.querySelector('.CodeMirror')
     el.CodeMirror.setValue(content)
   }
@@ -63,10 +62,9 @@ class SegmentfaultSpider extends BaseSpider {
 
     const stats = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText
-      const mRead = text.match(/(\d+) 次阅读/)
       const mComment = text.match(/(\d+) 条评论/)
-      const readNum = mRead ? Number(mRead[1]) : 0
-      const likeNum = Number(document.querySelector('#side-widget-votes-num').innerText)
+      const readNum = Number(document.querySelector('#sf-article_metas').getAttribute('data-viewsword'))
+      const likeNum = Number(document.querySelector('.mainLikeNum').innerText)
       const commentNum = mComment ? Number(mComment[1]) : 0
       return {
         readNum,

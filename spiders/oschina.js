@@ -24,8 +24,7 @@ class OschinaSpider extends BaseSpider {
   }
 
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.contentHtml + footerContent;
+    const content = article.contentHtml + `<br/>` + article.linkFooterHtml + `<br/>` + article.qrFooterHtml
     const iframeWindow = document.querySelector('.cke_wysiwyg_frame').contentWindow
     const el = iframeWindow.document.querySelector(editorSel.content)
     el.focus()
@@ -107,9 +106,9 @@ class OschinaSpider extends BaseSpider {
 
     const stats = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText
-      const mRead = text.match(/阅读 (\d+)/)
-      const mLike = text.match(/点赞 (\d+)/)
-      const mComment = text.match(/评论 (\d+)/)
+      const mRead = text.match(/阅读数 (\d+)/)
+      const mLike = text.match(/(\d+) 赞/)
+      const mComment = text.match(/(\d+) 评论/)
       const readNum = mRead ? Number(mRead[1]) : 0
       const likeNum = mLike ? Number(mLike[1]) : 0
       const commentNum = mComment ? Number(mComment[1]) : 0

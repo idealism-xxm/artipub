@@ -88,10 +88,10 @@ class CsdnSpider extends BaseSpider {
 
     const stats = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText;
-      const mRead = text.match(/阅读数 (\d+)/);
-      const readNum = mRead ? Number(mRead[1]) : 0;
-      const likeNum = Number(document.querySelector('#supportCount').innerText);
-      const commentNum = 0; // 暂时获取不了评论数
+      const mComment = text.match(/评论(\d+)/);
+      const readNum = Number(document.querySelector('.read-count').innerText);
+      const likeNum = Number(document.querySelector('#spanCount').innerText);
+      const commentNum = mComment ? Number(mComment[1]) : 0
       return {
         readNum,
         likeNum,

@@ -2,8 +2,7 @@ const BaseSpider = require('./base')
 
 class ToutiaoSpider extends BaseSpider {
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.contentHtml + footerContent
+    const content = article.contentHtml + `<br/>` + article.linkFooterHtml + `<br/>` + article.qrFooterHtml
     const el = document.querySelector(editorSel.content)
     el.focus()
     document.execCommand('insertHTML', false, content)

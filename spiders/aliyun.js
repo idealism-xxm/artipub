@@ -6,8 +6,7 @@ const axios = require('axios');
 class AliyunSpider extends BaseSpider {
 
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.content + footerContent
+    const content = article.content + article.linkFooter + article.qrFooter
     const el = document.querySelector('.textarea')
     el.focus()
     el.select()

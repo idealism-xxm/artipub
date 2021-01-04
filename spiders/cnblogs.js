@@ -36,9 +36,9 @@ class CnblogsSpider extends BaseSpider {
 
     const stats = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText
-      const mRead = text.match(/阅读 \((\d+)\)/)
+      const mRead = text.match(/阅读\((\d+)\)/)
       const mLike = document.querySelector('#bury_count').innerText
-      const mComment = text.match(/评论 \((\d+)\)/)
+      const mComment = text.match(/评论\((\d+)\)/)
       const readNum = mRead ? Number(mRead[1]) : 0
       const likeNum = Number(mLike)
       const commentNum = mComment ? Number(mComment[1]) : 0
