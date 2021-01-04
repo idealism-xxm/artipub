@@ -46,6 +46,10 @@ module.exports = {
       title: req.body.title,
       content: req.body.content,
       contentHtml: req.body.contentHtml,
+      linkFooter: req.body.linkFooter,
+      linkFooterHtml: req.body.linkFooterHtml,
+      qrFooter: req.body.qrFooter,
+      qrFooterHtml: req.body.qrFooterHtml,
       platformIds: [],
       createTs: new Date(),
       updateTs: new Date(),
@@ -67,6 +71,10 @@ module.exports = {
     article.title = req.body.title
     article.content = req.body.content
     article.contentHtml = req.body.contentHtml
+    article.linkFooter = req.body.linkFooter
+    article.linkFooterHtml = req.body.linkFooterHtml
+    article.qrFooter = req.body.qrFooter
+    article.qrFooterHtml = req.body.qrFooterHtml
     article.updateTs = new Date()
     article = await article.save()
     await res.json({

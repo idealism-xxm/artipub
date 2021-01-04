@@ -4,8 +4,8 @@ const constants = require('../constants')
 class JuejinSpider extends BaseSpider {
 
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.content + footerContent
+    // 掘金不允许二维码
+    const content = article.content + article.linkFooter
     const el = document.querySelector('.CodeMirror')
     el.CodeMirror.setValue(content)
   }

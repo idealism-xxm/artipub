@@ -78,6 +78,36 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
     }
   };
 
+  // 更新链接页脚
+  const onLinkFooterChange = (data: any) => {
+    const text = data.text;
+    const html = data.html;
+    if (dispatch) {
+      dispatch({
+        type: 'article/setArticleLinkFooter',
+        payload: {
+          linkFooter: text,
+          linkFooterHtml: html,
+        },
+      });
+    }
+  };
+
+  // 更新二维码页脚
+  const onQrFooterChange = (data: any) => {
+    const text = data.text;
+    const html = data.html;
+    if (dispatch) {
+      dispatch({
+        type: 'article/setArticleQrFooter',
+        payload: {
+          qrFooter: text,
+          qrFooterHtml: html,
+        },
+      });
+    }
+  };
+
   const onImageUpload = (data: any) => {
     console.log(data);
   };
@@ -159,7 +189,8 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
         {/*主要内容*/}
         <div className={style.main}>
           <MdEditor
-            style={{width: '100%', height: 'calc(100vh - 50px)'}}
+            name={"文章内容"}
+            style={{width: '100%', height: 'calc(100vh - 250px)'}}
             value={article.currentArticle ? article.currentArticle.content : ''}
             renderHTML={(text) => {
               const html = mdParser.render(text);
@@ -172,6 +203,50 @@ const ArticleEdit: React.FC<ArticleEditProps> = props => {
               return html;
             }}
             onChange={onContentChange}
+            onImageUpload={onImageUpload}
+          />
+        </div>
+
+        {/*链接页脚（用于引流，部分平台不会允许此内容，需要屏蔽）*/}
+        <div className={style.main}>
+          <MdEditor
+            name={"链接页脚"}
+            config={{view: {menu: false, md: true, html: true}}}
+            style={{width: '100%', height: '100px'}}
+            value={article.currentArticle ? article.currentArticle.linkFooter : ''}
+            renderHTML={(text) => {
+              const html = mdParser.render(text);
+              dispatch({
+                type: 'article/setArticleLinkFooterHtml',
+                payload: {
+                  linkFooterHtml: html,
+                },
+              });
+              return html;
+            }}
+            onChange={onLinkFooterChange}
+            onImageUpload={onImageUpload}
+          />
+        </div>
+
+        {/*二维码页脚（用于引流，部分平台不会允许此内容，需要屏蔽）*/}
+        <div className={style.main}>
+          <MdEditor
+            name={"二维码页脚"}
+            config={{view: {menu: false, md: true, html: true}}}
+            style={{width: '100%', height: '100px'}}
+            value={article.currentArticle ? article.currentArticle.qrFooter : ''}
+            renderHTML={(text) => {
+              const html = mdParser.render(text);
+              dispatch({
+                type: 'article/setArticleQrFooterHtml',
+                payload: {
+                  qrFooterHtml: html,
+                },
+              });
+              return html;
+            }}
+            onChange={onQrFooterChange}
             onImageUpload={onImageUpload}
           />
         </div>

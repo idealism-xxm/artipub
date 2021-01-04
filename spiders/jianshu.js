@@ -34,8 +34,8 @@ class JianshuSpider extends BaseSpider {
    * 输入文章内容
    */
   async inputContent(article, editorSel) {
-    const footerContent = ``
-    const content = article.content + footerContent
+    // 简书不允许链接和二维码
+    const content = article.content
     document.execCommand('insertText', false, content)
   }
 

@@ -14,6 +14,12 @@ export interface Article {
   title: string;
   content: string;
   contentHtml: string;
+  // 链接页脚（用于引流，部分平台不会允许此内容，需要屏蔽）
+  linkFooter: string;
+  linkFooterHtml: string;
+  // 二维码页脚（用于引流，部分平台不会允许此内容，需要屏蔽）
+  qrFooter: string;
+  qrFooterHtml: string;
   platformIds: string[];
   readNum?: number;
   likeNum?: number;
@@ -40,6 +46,10 @@ export interface ArticleModelType {
     setArticleTitle: Effect;
     setArticleContent: Effect;
     setArticleContentHtml: Effect;
+    setArticleLinkFooter: Effect;
+    setArticleLinkFooterHtml: Effect;
+    setArticleQrFooter: Effect;
+    setArticleQrFooterHtml: Effect;
     setArticlePlatformIds: Effect;
     saveCurrentArticle: Effect;
     deleteArticle: Effect;
@@ -54,6 +64,10 @@ export interface ArticleModelType {
     saveArticleTitle: Reducer<ArticleModelState>;
     saveArticleContent: Reducer<ArticleModelState>;
     saveArticleContentHtml: Reducer<ArticleModelState>;
+    saveArticleLinkFooter: Reducer<ArticleModelState>;
+    saveArticleLinkFooterHtml: Reducer<ArticleModelState>;
+    saveArticleQrFooter: Reducer<ArticleModelState>;
+    saveArticleQrFooterHtml: Reducer<ArticleModelState>;
     saveArticlePlatformIds: Reducer<ArticleModelState>;
     savePubModalVisible: Reducer<ArticleModelState>;
     savePlatformModalVisible: Reducer<ArticleModelState>;
@@ -67,7 +81,7 @@ const ArticleModel: ArticleModelType = {
   state: {
     articles: [],
     currentArticleId: undefined,
-    currentArticle: { title: '', content: '', contentHtml: '', platformIds: [] },
+    currentArticle: { title: '', content: '', contentHtml: '', linkFooter: '', linkFooterHtml: '', qrFooter: '', qrFooterHtml: '', platformIds: [] },
     pubModalVisible: false,
     platformModalVisible: false,
     fetchHandle: undefined,
@@ -122,6 +136,34 @@ const ArticleModel: ArticleModelType = {
     *setArticleContentHtml(action, { put }) {
       yield put({
         type: 'saveArticleContentHtml',
+        payload: action.payload,
+      });
+    },
+
+    *setArticleLinkFooter(action, { put }) {
+      yield put({
+        type: 'saveArticleLinkFooter',
+        payload: action.payload,
+      });
+    },
+
+    *setArticleLinkFooterHtml(action, { put }) {
+      yield put({
+        type: 'saveArticleLinkFooterHtml',
+        payload: action.payload,
+      });
+    },
+
+    *setArticleQrFooter(action, { put }) {
+      yield put({
+        type: 'saveArticleQrFooter',
+        payload: action.payload,
+      });
+    },
+
+    *setArticleQrFooterHtml(action, { put }) {
+      yield put({
+        type: 'saveArticleQrFooterHtml',
         payload: action.payload,
       });
     },
@@ -211,6 +253,44 @@ const ArticleModel: ArticleModelType = {
       if (!state || !state.currentArticle) return { ...state };
       const currentArticle = state.currentArticle;
       currentArticle.contentHtml = action.payload.contentHtml;
+      return {
+        ...state,
+        currentArticle,
+      };
+    },
+    saveArticleLinkFooter(state, action) {
+      if (!state || !state.currentArticle) return { ...state };
+      const currentArticle = state.currentArticle;
+      currentArticle.linkFooter = action.payload.linkFooter;
+      currentArticle.linkFooterHtml = action.payload.linkFooterHtml;
+      return {
+        ...state,
+        currentArticle,
+      };
+    },
+    saveArticleLinkFooterHtml(state, action) {
+      if (!state || !state.currentArticle) return { ...state };
+      const currentArticle = state.currentArticle;
+      currentArticle.linkFooterHtml = action.payload.linkFooterHtml;
+      return {
+        ...state,
+        currentArticle,
+      };
+    },
+    saveArticleQrFooter(state, action) {
+      if (!state || !state.currentArticle) return { ...state };
+      const currentArticle = state.currentArticle;
+      currentArticle.qrFooter = action.payload.qrFooter;
+      currentArticle.qrFooterHtml = action.payload.qrFooterHtml;
+      return {
+        ...state,
+        currentArticle,
+      };
+    },
+    saveArticleQrFooterHtml(state, action) {
+      if (!state || !state.currentArticle) return { ...state };
+      const currentArticle = state.currentArticle;
+      currentArticle.qrFooterHtml = action.payload.qrFooterHtml;
       return {
         ...state,
         currentArticle,
