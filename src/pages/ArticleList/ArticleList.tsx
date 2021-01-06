@@ -698,29 +698,36 @@ const ArticleList: React.FC<ArticleListProps> = props => {
     );
   } else if (currentPlatform && currentPlatform.name === constants.platform.OSCHINA) {
     const categories = [
-      '移动开发',
-      '前端开发',
-      '人工智能',
-      '服务端开发/管理',
-      '游戏开发',
-      '编程语言',
+      '大前端',
+      '开发技能',
       '数据库',
-      '企业开发',
-      '图像/多媒体',
-      '系统运维',
-      '软件工程',
-      '大数据',
       '云计算',
-      '开源硬件',
+      '飞桨专区',
+      '鸿蒙专区',
+      '开源治理',
+      '程序人生',
+      '软件架构',
+      '行业趋势',
+      '硬件 & IoT',
+      'AI & 大数据',
+      'OpenVINO 中文社区',
+      'EdgeX 中文社区',
+      '鲲鹏专区',
+      'openEuler',
+      '信息安全',
+      '运维',
+      '软件测试',
+      '网络技术',
+      '游戏开发',
+      '多媒体处理',
+      'DevOps',
       '区块链',
-      '其他类型',
-      '物联网',
     ];
     platformContent = (
       <Form labelCol={{sm: {span: 4}}} wrapperCol={{sm: {span: 20}}}>
-        <Form.Item label="系统分类" required={true}>
+        <Form.Item label="技术领域" required={true}>
           <Select
-            placeholder="点击选择系统分类"
+            placeholder="点击选择技术领域"
             value={task.currentTask ? task.currentTask.category : undefined}
             onChange={onTaskChange('select', 'category')}
           >

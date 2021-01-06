@@ -42,37 +42,12 @@ class OschinaSpider extends BaseSpider {
     await this.page.waitFor(1000)
 
     await this.page.evaluate(task => {
-      const categories = [
-        '移动开发',
-        '前端开发',
-        '人工智能',
-        '服务端开发/管理',
-        '游戏开发',
-        '编程语言',
-        '数据库',
-        '企业开发',
-        '图像/多媒体',
-        '系统运维',
-        '软件工程',
-        '大数据',
-        '云计算',
-        '开源硬件',
-        '区块链',
-        '其他类型',
-        '物联网',
-      ]
-      const index = categories.indexOf(task.category)
-
-      const items = document.querySelectorAll('.inline.fields > .field:nth-child(1) > .dropdown .item')
-      // TODO 根据标签动态选择
-      items[0].click()
-      // for (let i = 0; i < items.length; i++) {
-      //   const item = items[i]
-      //   if (index === i) {
-      //     item.click()
-      //     return
-      //   }
-      // }
+      document.querySelectorAll('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div > div.menu.transition.hidden .item')
+        .forEach((item) => {
+          if (item.innerText === task.category) {
+            item.click();
+          }
+        })
     }, this.task)
     await this.page.waitFor(3000)
   }

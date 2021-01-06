@@ -44,6 +44,10 @@ class SegmentfaultSpider extends BaseSpider {
     // 点击发布文章
     await this.page.click('#submitDiv > button')
     await this.page.waitFor(1000)
+
+    // 勾选 注明版权
+    await this.page.click('#license')
+    await this.page.waitFor(1000)
   }
 
   async afterPublish() {
