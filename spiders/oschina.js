@@ -39,9 +39,10 @@ class OschinaSpider extends BaseSpider {
 
   async afterInputEditor() {
     this.page.click('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div')
+    this.page.waitFor(1000)
 
     await this.page.evaluate(task => {
-      document.querySelectorAll('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div > div.menu.transition.hidden .item')
+      document.querySelectorAll('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div > div.menu.transition .item')
         .forEach((item) => {
           if (item.innerText === task.category) {
             item.click();

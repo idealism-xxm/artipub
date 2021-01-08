@@ -2,10 +2,12 @@ const BaseSpider = require('./base')
 const constants = require('../constants')
 
 class SegmentfaultSpider extends BaseSpider {
-  async inputContent(article, editorSel) {
-    const content = article.content + article.linkFooter + article.qrFooter
-    const el = document.querySelector('.CodeMirror')
-    el.CodeMirror.setValue(content)
+  async spiderInputContent() {
+    const content = this.article.content + this.article.linkFooter + this.article.qrFooter
+    await this.page.mouse.click(200, 400)
+    await this.page.evaluate((content) => {
+      document.execCommand('insertText', false, content)
+    }, content)
   }
 
   async inputFooter(article, editorSel) {

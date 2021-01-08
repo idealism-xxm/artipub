@@ -29,7 +29,7 @@ module.exports = {
     editorSel: {
       title: '#root > div > div > div > div > form > div.form-group > input',
       content: '.CodeMirror',
-      publish: '#sf-header > div > div.dropdown > button'
+      publish: '#sureSubmitBtn'
     }
   },
 

@@ -236,6 +236,14 @@ class BaseSpider {
   }
 
   /**
+   * spider 输入文章内容
+   */
+  async spiderInputContent() {
+    await this.page.evaluate(this.inputContent, this.article, this.editorSel);
+    await this.page.waitFor(3000);
+  }
+
+  /**
    * 输入文章内容
    */
   async inputContent(article, editorSel) {
@@ -281,8 +289,7 @@ class BaseSpider {
 
     // 输入内容
     logger.info(`input editor  content`);
-    await this.page.evaluate(this.inputContent, this.article, this.editorSel);
-    await this.page.waitFor(3000);
+    await this.spiderInputContent()
 
     // 输入脚注
     await this.page.evaluate(this.inputFooter, this.article, this.editorSel);
