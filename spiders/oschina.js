@@ -38,8 +38,7 @@ class OschinaSpider extends BaseSpider {
   }
 
   async afterInputEditor() {
-    await this.page.click('.inline.fields > .field:nth-child(1) > .dropdown')
-    await this.page.waitFor(1000)
+    this.page.click('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div')
 
     await this.page.evaluate(task => {
       document.querySelectorAll('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div > div.menu.transition.hidden .item')
@@ -49,7 +48,7 @@ class OschinaSpider extends BaseSpider {
           }
         })
     }, this.task)
-    await this.page.waitFor(3000)
+    await this.page.waitFor(1000)
   }
 
   async publish() {

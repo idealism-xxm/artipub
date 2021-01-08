@@ -27,9 +27,9 @@ module.exports = {
       submit: 'button[type="submit"]'
     },
     editorSel: {
-      title: '#title',
+      title: '#root > div > div > div > div > form > div.form-group > input',
       content: '.CodeMirror',
-      publish: '#sureSubmitBtn'
+      publish: '#sf-header > div > div.dropdown > button'
     }
   },
 

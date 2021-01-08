@@ -17,6 +17,39 @@ class CnblogsSpider extends BaseSpider {
     // do nothing
   }
 
+  async afterInputEditor() {
+    // 选择 个人分类
+    await this.page.evaluate(task => {
+      document.querySelectorAll('cnb-collapse-panel[name="个人分类"] > div.ng-trigger-openClosePanel .item__text')
+        .forEach(item => {
+          if (item.innerText === task.category) {
+            item.previousElementSibling.click()
+          }
+        })
+    }, this.task)
+    await this.page.waitFor(1000)
+
+    // 选择 发布至首页候选区
+    await this.page.click('#site-publish-candidate')
+    await this.page.waitFor(1000)
+
+    // 选择 发布至博客园首页
+    await this.page.click('#site-publish-site-home')
+    await this.page.waitFor(1000)
+
+    // 输入标签
+    if (this.task.tag) {
+      await this.page.evaluate(task => {
+        task.tag.split(',').forEach(tag => {
+          document.querySelector('#tags > ng-select > div > div > div.ng-input > input[type=text]').focus()
+          document.execCommand('insertText', false, tag)
+          document.querySelector('body > ng-dropdown-panel > div > div:nth-child(2) > div:nth-child(1)').click()
+        })
+      }, this.task)
+      await this.page.waitFor(1000)
+    }
+  }
+
   async afterPublish() {
     this.task.url = await this.page.evaluate(() => {
       return document.querySelector('.link-post-title')

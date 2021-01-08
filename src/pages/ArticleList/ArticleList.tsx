@@ -759,6 +759,25 @@ const ArticleList: React.FC<ArticleListProps> = props => {
         </Form.Item>
       </Form>
     );
+  } else if (currentPlatform && currentPlatform.name === constants.platform.CNBLOGS) {
+    platformContent = (
+      <Form labelCol={{sm: {span: 4}}} wrapperCol={{sm: {span: 20}}}>
+        <Form.Item label="个人分类">
+          <Input
+            placeholder="输入个人分类"
+            value={task.currentTask?.category}
+            onChange={onTaskChange('input', 'category')}
+          />
+        </Form.Item>
+        <Form.Item label="标签">
+          <Input
+            placeholder="输入标签（用逗号分割）"
+            value={task.currentTask?.tag}
+            onChange={onTaskChange('input', 'tag')}
+          />
+        </Form.Item>
+      </Form>
+    );
   }
 
   return (

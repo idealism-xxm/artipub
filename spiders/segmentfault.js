@@ -14,7 +14,7 @@ class SegmentfaultSpider extends BaseSpider {
 
   async afterInputEditor() {
     // 点击添加标签
-    await this.page.click('#add-tag-btn')
+    await this.page.click('#root > div > div > div > div > form > div.d-flex.justify-content-between > div > div > button')
     await this.page.waitFor(3000)
 
     // 输入并选择标签
@@ -42,7 +42,7 @@ class SegmentfaultSpider extends BaseSpider {
     }
 
     // 点击发布文章
-    await this.page.click('#submitDiv > button')
+    await this.page.click('#sf-header > div > div.dropdown > button')
     await this.page.waitFor(1000)
 
     // 勾选 注明版权
