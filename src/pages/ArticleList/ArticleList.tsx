@@ -162,6 +162,17 @@ const ArticleList: React.FC<ArticleListProps> = props => {
   };
 
   const onTaskModalConfirm = () => {
+    if (task.currentTask) {
+      const fieldNames = [
+        'category',
+        'tag',
+        'pubType',
+      ]
+      for (const fieldName of fieldNames) {
+        const key = getPlatformLocalStorageKey(task.currentTask.platformId, fieldName)
+        localStorage.setItem(key, task.currentTask[fieldName])
+      }
+    }
     dispatch({
       type: 'task/addTasks',
       payload: task.tasks,
@@ -172,22 +183,13 @@ const ArticleList: React.FC<ArticleListProps> = props => {
     });
   };
 
-  const getDefaultCategory = (p: Platform) => {
-    if (p.name === constants.platform.JUEJIN) {
-      return '前端';
-    } else if (p.name === constants.platform.CSDN) {
-      return '原创';
-    } else {
-      return '';
-    }
-  };
+  const getPlatformLocalStorageKey = (platformId: string, fieldName: string) => {
+    return platformId + '.' + fieldName
+  }
 
-  const getDefaultTag = (p: Platform) => {
-    if (p.name === constants.platform.JUEJIN) {
-      return '前端';
-    } else {
-      return '前端';
-    }
+  const getDefaultTaskField = (p: Platform, fieldName: string) => {
+    const key = p._id && getPlatformLocalStorageKey(p._id, fieldName)
+    return localStorage.getItem(key || '') || ''
   };
 
   const saveTasks = async (selectedPlatforms: Object[], _article: Article) => {
@@ -201,10 +203,10 @@ const ArticleList: React.FC<ArticleListProps> = props => {
         t = {
           platformId: p._id || '',
           articleId: _article._id || '',
-          category: getDefaultCategory(p),
-          tag: getDefaultTag(p),
+          category: getDefaultTaskField(p, 'category'),
+          tag: getDefaultTaskField(p, 'tag'),
           title: article.currentArticle ? article.currentArticle.title : '',
-          pubType: 'public',
+          pubType: getDefaultTaskField(p, 'pubType'),
           checked: selectedPlatforms.map((_p: any) => _p._id).includes(p._id),
           authType: constants.authType.COOKIE,
           url: '',
