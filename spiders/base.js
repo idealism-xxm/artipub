@@ -295,8 +295,6 @@ class BaseSpider {
     await this.page.evaluate(this.inputFooter, this.article, this.editorSel);
     await this.page.waitFor(3000);
 
-    await this.page.waitFor(10000);
-
     // 后续处理
     await this.afterInputEditor();
   }

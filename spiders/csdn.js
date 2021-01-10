@@ -14,8 +14,7 @@ class CsdnSpider extends BaseSpider {
     }
 
     // 内容
-    const footerContent = ``
-    const content = this.article.content + footerContent
+    const content = this.article.content + this.article.linkFooter + this.article.qrFooter
 
     // 写入临时markdown文件
     const mdPath = path.join(dirPath, `${this.article._id.toString()}.md`)
@@ -43,33 +42,46 @@ class CsdnSpider extends BaseSpider {
    */
   async afterInputEditor() {
     // 输入编辑器内容的后续处理
-    // 标签、分类输入放在这里
-    // 发布文章
-    // 选择文章类型
     // 点击发布文章
     const elPubBtn = await this.page.$('.btn-publish');
     await elPubBtn.click();
     await this.page.waitFor(5000);
 
     // 选择类别
-    await this.page.evaluate(() => {
-      const element = document.querySelector('.textfield');
-      element.value = 'original';
-      if ('createEvent' in document) {
-        let evt = document.createEvent('HTMLEvents');
-        evt.initEvent('change', false, true);
-        element.dispatchEvent(evt);
-      } else {
-        element.fireEvent('onchange');
+    const categories = this.task.category.split(',')
+    await this.page.evaluate((categories) => {
+      for (const category of categories) {
+        const elCategory = document.querySelector('.tag__option-chk[value="' + category + '"]')
+        if (elCategory) {
+          elCategory.click()
+        }
       }
-      // document.querySelector('.textfield > option:nth-child(1)').removeAttribute('selected')
-    });
+    }, categories)
 
-    // 选择发布形式
-    await this.page.evaluate(task => {
-      const el = document.querySelector('#' + task.pubType);
-      el.click();
-    }, this.task);
+    // 选择标签
+    await this.page.click('.tag__btn-tag')
+    await this.page.waitFor(1000)
+
+    const tags = this.task.tag.split(',')
+    const elTagInput = await this.page.$('input[placeholder="请输入文字搜索，Enter键入可添加自定义标签"]')
+    for (const tag of tags) {
+      // 清除已有内容
+      await this.page.evaluate(() => {
+        document.querySelector('input[placeholder="请输入文字搜索，Enter键入可添加自定义标签"]').value = ''
+      })
+      await this.page.waitFor(1000)
+
+      // 输入标签
+      await elTagInput.type(tag)
+      await this.page.waitFor(3000)
+      await this.page.evaluate(() => {
+        const el = document.querySelector('.el-autocomplete-suggestion__list > li')
+        if (el) {
+          el.click()
+        }
+      })
+      await this.page.waitFor(3000)
+    }
   }
 
   async afterPublish() {

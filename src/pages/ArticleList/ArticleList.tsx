@@ -647,40 +647,21 @@ const ArticleList: React.FC<ArticleListProps> = props => {
     );
   } else if (currentPlatform && currentPlatform.name === constants.platform.JIANSHU) {
   } else if (currentPlatform && currentPlatform.name === constants.platform.CSDN) {
-    const categories = [
-      {value: '1', label: '原创'},
-      {value: '2', label: '转载'},
-      {value: '4', label: '翻译'},
-    ];
-    const pubTypes = [
-      {value: 'public', label: '公开'},
-      {value: 'private', label: '私密'},
-      {value: 'needfans', label: '粉丝可见'},
-      {value: 'needvip', label: 'VIP可见'},
-    ];
     platformContent = (
       <Form labelCol={{sm: {span: 4}}} wrapperCol={{sm: {span: 20}}}>
-        <Form.Item label="文章类型" required={true}>
-          <Select
-            placeholder="选择文章类型"
-            value={task.currentTask ? task.currentTask.category : undefined}
-            onChange={onTaskChange('select', 'category')}
-          >
-            {categories.map(c => (
-              <Select.Option key={c.value}>{c.label}</Select.Option>
-            ))}
-          </Select>
+        <Form.Item label="分类专栏">
+          <Input
+            placeholder="输入分类专栏（用逗号分割）"
+            value={task.currentTask?.category}
+            onChange={onTaskChange('input', 'category')}
+          />
         </Form.Item>
-        <Form.Item label="发布形式" required={true}>
-          <Select
-            placeholder="选择发布形式"
-            value={task.currentTask ? task.currentTask.pubType : undefined}
-            onChange={onTaskChange('select', 'pubType')}
-          >
-            {pubTypes.map(pt => (
-              <Select.Option key={pt.value}>{pt.label}</Select.Option>
-            ))}
-          </Select>
+        <Form.Item label="文章标签">
+          <Input
+            placeholder="输入文章标签（用逗号分割）"
+            value={task.currentTask?.tag}
+            onChange={onTaskChange('input', 'tag')}
+          />
         </Form.Item>
       </Form>
     );

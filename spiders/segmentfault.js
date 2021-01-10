@@ -16,8 +16,10 @@ class SegmentfaultSpider extends BaseSpider {
 
   async afterInputEditor() {
     // 点击添加标签
-    await this.page.click('#root > div > div > div > div > form > div.d-flex.justify-content-between > div > div > button')
-    await this.page.waitFor(3000)
+    await this.page.evaluate(() => {
+      document.querySelector('#root > div > div > div > div > form > div.d-flex.justify-content-between > div > div > button').click()
+    })
+    await this.page.waitFor(1000)
 
     // 输入并选择标签
     const tags = this.task.tag.split(',')

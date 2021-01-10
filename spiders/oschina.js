@@ -38,8 +38,8 @@ class OschinaSpider extends BaseSpider {
   }
 
   async afterInputEditor() {
-    this.page.click('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div')
-    this.page.waitFor(1000)
+    await this.page.click('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div')
+    await this.page.waitFor(1000)
 
     await this.page.evaluate(task => {
       document.querySelectorAll('#writeArticleWrapper > div > div > form > div.inline.fields.footer-fields > div.required.field.set-bottom.field-groups > div > div.menu.transition .item')
@@ -58,7 +58,7 @@ class OschinaSpider extends BaseSpider {
       const el = document.querySelector(editorSel.publish)
       el.click()
     }, this.editorSel)
-    await this.page.waitFor(20000)
+    await this.page.waitFor(5000)
 
     // 后续处理
     await this.afterPublish()
