@@ -71,7 +71,8 @@ class SegmentfaultSpider extends BaseSpider {
     const stats = await this.page.evaluate(() => {
       const text = document.querySelector('body').innerText
       const mComment = text.match(/(\d+) 条评论/)
-      const readNum = Number(document.querySelector('#sf-article_metas').getAttribute('data-viewsword'))
+      const mRead = text.match(/阅读 (\d+)/)
+      const readNum = mRead ? Number(mRead[1]) : 0
       const likeNum = Number(document.querySelector('.mainLikeNum').innerText)
       const commentNum = mComment ? Number(mComment[1]) : 0
       return {

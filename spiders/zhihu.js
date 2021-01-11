@@ -12,7 +12,7 @@ class ZhihuSpider extends BaseSpider {
     }
 
     // 内容
-    const content = this.article.content + this.article.linkFooter + this.article.qrFooter
+    const content = this.article.content + this.article.linkFooter
 
     // 写入临时markdown文件
     const mdPath = path.join(dirPath, `${this.article._id.toString()}.md`)

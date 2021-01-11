@@ -82,6 +82,33 @@ class CsdnSpider extends BaseSpider {
       })
       await this.page.waitFor(3000)
     }
+
+    // 选择文章类型
+    await this.page.evaluate(() => {
+      const element = document.querySelector('.textfield');
+      element.value = 'original';
+      if ('createEvent' in document) {
+        let evt = document.createEvent('HTMLEvents');
+        evt.initEvent('change', false, true);
+        element.dispatchEvent(evt);
+      } else {
+        element.fireEvent('onchange');
+      }
+    });
+  }
+
+  /**
+   * 发布文章
+   */
+  async publish() {
+    // 发布文章
+    await this.page.evaluate((selector) => {
+      document.querySelector(selector).click()
+    }, this.editorSel.publish)
+    await this.page.waitFor(10000);
+
+    // 后续处理
+    await this.afterPublish();
   }
 
   async afterPublish() {
@@ -99,11 +126,9 @@ class CsdnSpider extends BaseSpider {
     await this.page.waitFor(5000);
 
     const stats = await this.page.evaluate(() => {
-      const text = document.querySelector('body').innerText;
-      const mComment = text.match(/评论(\d+)/);
       const readNum = Number(document.querySelector('.read-count').innerText);
       const likeNum = Number(document.querySelector('#spanCount').innerText);
-      const commentNum = mComment ? Number(mComment[1]) : 0
+      const commentNum = Number(document.querySelector('a[href="#commentBox"] > .count').innerText)
       return {
         readNum,
         likeNum,
