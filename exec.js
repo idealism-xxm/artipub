@@ -65,7 +65,7 @@ class Runner {
               $exists: true
             }
           })
-          for (let i = 0; i < tasks.length; i++) {
+          for (let i = tasks.length - 1; i >= 0; i--) {
             logger.info('Stats fetch task started')
             let task = await tasks[i]
             const executor = new StatsFetcher(task)

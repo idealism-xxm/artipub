@@ -17,7 +17,7 @@ class SegmentfaultSpider extends BaseSpider {
   async afterInputEditor() {
     // 点击添加标签
     await this.page.evaluate(() => {
-      document.querySelector('#root > div > div > div > div > form > div.d-flex.justify-content-between > div > div > button').click()
+      document.querySelector('button.btn-Secondary').click()
     })
     await this.page.waitFor(1000)
 
@@ -46,7 +46,7 @@ class SegmentfaultSpider extends BaseSpider {
     }
 
     // 点击发布文章
-    await this.page.click('#sf-header > div > div.dropdown > button')
+    await this.page.click('button.btn-primary')
     await this.page.waitFor(1000)
 
     // 勾选 注明版权

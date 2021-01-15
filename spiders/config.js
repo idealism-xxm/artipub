@@ -27,7 +27,7 @@ module.exports = {
       submit: 'button[type="submit"]'
     },
     editorSel: {
-      title: '#root > div > div > div > div > form > div.form-group > input',
+      title: 'input[placeholder="请输入标题"]',
       content: '.CodeMirror',
       publish: '#sureSubmitBtn'
     }

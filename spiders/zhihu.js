@@ -51,21 +51,30 @@ class ZhihuSpider extends BaseSpider {
     })
     await this.page.waitFor(5000)
 
+    // 先删除原有标签
+    await this.page.evaluate(() => {
+      document.querySelectorAll('.PublishPanel-removeTag').forEach(el => el.click())
+    })
+    await this.page.waitFor(1000)
+
     // 选择标签
-    // const tags = this.task.tag.split(',')
-    // for (const tag of tags) {
-    //   const elTagInput = await this.page.$('.PublishPanel-searchInput')
-    //   await elTagInput.type(tag)
-    //   await this.page.waitFor(5000)
-    //   await this.page.evaluate(() => {
-    //     document.querySelector('.PublishPanel-suggest > li:nth-child(1)').click()
-    //   })
-    // }
+    const tags = this.task.tag.split(',')
+    for (const tag of tags) {
+      const elTagInput = await this.page.$('.PublishPanel-searchInput')
+      await elTagInput.type(tag)
+      await this.page.waitFor(3000)
+      await this.page.evaluate(() => {
+        const el = document.querySelector('.PublishPanel-suggest > li:nth-child(1)')
+        if (el) {
+          el.click()
+        }
+      })
+      await this.page.waitFor(1000)
+    }
 
     // 点击下一步
     await this.page.evaluate(() => {
-      const el = document.querySelector('.PublishPanel-stepOneButton > button')
-      el.click()
+      document.querySelector('.PublishPanel-stepOneButton > button').click()
     })
     await this.page.waitFor(2000)
   }
