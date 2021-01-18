@@ -10,4 +10,5 @@ module.exports = {
   V2exSpider: require('./v2ex'),
   WechatSpider: require('./wechat'),
   AliyunSpider: require('./aliyun'),
+  LeetcodeSpider: require('./leetcode')
 }

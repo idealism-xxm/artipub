@@ -176,5 +176,21 @@ module.exports = {
       content: '.textarea',
       publish: '.next-btn-primary'
     }
-  }
+  },
+  leetcode: {
+    urls: {
+      login: '',
+      editor: 'https://leetcode-cn.com/circle/articles/write/'
+    },
+    loginSel: {
+      username: '',
+      password: '',
+      submit: ''
+    },
+    editorSel: {
+      title: 'input[placeholder="此处输入文章标题…"]',
+      content: '.monaco-editor',
+      publish: 'a[href="/circle/my_drafts/"] ~ button'
+    }
+  },
 }

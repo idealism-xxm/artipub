@@ -101,6 +101,15 @@ module.exports = {
       enableImport: false,
       enableLogin: false,
     },
+    {
+      name: constants.platform.LEETCODE,
+      label: '力扣（LeetCode）',
+      editorType: constants.editorType.MARKDOWN,
+      url: 'https://leetcode-cn.com/',
+      description: '备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer 。',
+      enableImport: false,
+      enableLogin: false,
+    },
   ],
 
   // 环境变量

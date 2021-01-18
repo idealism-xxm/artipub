@@ -24,6 +24,7 @@ import imgCnblogs from '@/assets/img/cnblogs-logo.gif';
 import imgV2ex from '@/assets/img/v2ex-logo.jpg';
 import imgWechat from '@/assets/img/wechat-logo.jpg';
 import imgAliyun from '@/assets/img/aliyun-logo.png';
+import imgLeetcode from '@/assets/img/leetcode-logo.png';
 import juejin from "@/data/juejin";
 import v2ex from "@/data/v2ex";
 
@@ -439,6 +440,8 @@ const ArticleList: React.FC<ArticleListProps> = props => {
           return <img className={style.siteLogo} alt={d.label} src={imgWechat} />;
         } else if (d.name === constants.platform.ALIYUN) {
           return <img className={style.siteLogo} alt={d.label} src={imgAliyun} />;
+        } else if (d.name === constants.platform.LEETCODE) {
+          return <img className={style.siteLogo} alt={d.label} src={imgLeetcode} />;
         } else {
           return <div />;
         }
@@ -761,6 +764,18 @@ const ArticleList: React.FC<ArticleListProps> = props => {
         </Form.Item>
       </Form>
     );
+  } else if (currentPlatform && currentPlatform.name === constants.platform.LEETCODE) {
+    platformContent = (
+      <Form labelCol={{sm: {span: 4}}} wrapperCol={{sm: {span: 20}}}>
+        <Form.Item label="标签">
+          <Input
+            placeholder="输入标签（用逗号分割）"
+            value={task.currentTask?.tag}
+            onChange={onTaskChange('input', 'tag')}
+          />
+        </Form.Item>
+      </Form>
+    )
   }
 
   return (
